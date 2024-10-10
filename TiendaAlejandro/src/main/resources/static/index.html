@@ -1,38 +1,12 @@
-<html>
-    <head>
-        <title>Tienda</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>        
     </head>
     <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
         
-        <a href="index.html">Home</a>
-        <a href="ejemplo2.html">Next</a>
-        
-        <div>
-            <h1>
-                Pagina Principal
-            </h1>
-            <p>
-                Esta es la primera pagina del curso WEB y Patrones...
-            </p>
-        </div>
-        
-        <p style="text-align:left">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit mus sociosqu
-        </p>
-        <p style="text-align:right">
-            Faucibus curae ultricies erat felis tincidunt a tellus libero
-        </p>
-        <p style="text-align:center">
-            Euismod facilisis tortor nec ac id curabitur eleifend ante
-        </p>
-        
-        <br>
-        <br>
-        
-        <p>Ultima Linea</p>
+        <footer th:replace="~{layout/plantilla :: footer}"/>          
     </body>
 </html>
-
-
