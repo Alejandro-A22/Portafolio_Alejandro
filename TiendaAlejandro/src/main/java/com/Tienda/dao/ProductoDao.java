@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Alejandro
  */
-public interface ProductoDao {
+public interface ProductoDao CategoriaDao extends JpaRepository<Producto,Long>{
     
 }
