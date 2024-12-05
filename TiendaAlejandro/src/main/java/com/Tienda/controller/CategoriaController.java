@@ -2,8 +2,7 @@ package com.Tienda.controller;
 
 import com.Tienda.domain.Categoria;
 import com.Tienda.service.CategoriaService;
-import com.Tienda.service.impl.FirebaseStorageServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import com.Tienda.service.FirebaseStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@Slf4j
 @RequestMapping("/categoria")
 public class CategoriaController {
 
@@ -23,7 +20,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/listado")
-    public String inicio(Model model) {
+    public String listado(Model model) {
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
         model.addAttribute("totalCategorias", categorias.size());
@@ -36,20 +33,18 @@ public class CategoriaController {
     }
 
     @Autowired
-    private FirebaseStorageServiceImpl firebaseStorageService;
+    private FirebaseStorageService firebaseStorageService;
 
     @PostMapping("/guardar")
-    public String categoriaGuardar(Categoria categoria, 
-                                   @RequestParam("imagenFile") MultipartFile imagenFile) {
+    public String categoriaGuardar(Categoria categoria,
+            @RequestParam("imagenFile") MultipartFile imagenFile) {
         if (!imagenFile.isEmpty()) {
             categoriaService.save(categoria);
             categoria.setRutaImagen(
-                firebaseStorageService.cargaImagen(
-                    imagenFile, 
-                    "categoria", 
-                    categoria.getIdCategoria()
-                )
-            );
+                    firebaseStorageService.cargaImagen(
+                            imagenFile,
+                            "categoria",
+                            categoria.getIdCategoria()));
         }
         categoriaService.save(categoria);
         return "redirect:/categoria/listado";
